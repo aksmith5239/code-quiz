@@ -11,7 +11,6 @@
 ## Enhancements to be made
 * Local Storage needs to be improved
 * A proper winners board needs to be implemented
-* Chime to sound with correct answer
-* Buzzer to sound with wrong answer
+* Improve sound effects
 
 <img src="./assets/images/codeQuiz.png" alt="screenshot of code quiz" height="200" width="200">

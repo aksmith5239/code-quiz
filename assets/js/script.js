@@ -99,12 +99,14 @@ function checkAnswer(answer) {
 
 function correctAnswer() {
     outcome.innerHTML = "That is the correct answer!";
-    
+    var snd = new Audio("assets/sounds/chime.wav"); // buffers automatically when created
+    snd.play();
 }
 
 function wrongAnswer() {
     outcome.innerHTML = "Sorry, that is the wrong answer.";
-    
+    var snd = new Audio("assets/sounds/buzzer.wav"); // buffers automatically when created
+    snd.play();
 }
 // restart.addEventListener("click", startQuiz);
 function showHighScore () {
