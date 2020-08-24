@@ -10,6 +10,8 @@ var choiceD = document.getElementById("D");
 var outcome = document.getElementById("outcome");
 var restart = document.getElementById("re-start");
 var myScore = document.getElementById("my-score");
+var addMyName = document.getElementById("add-name");
+var winners = document.getElementById("winners");
 var timeLeft = 60;
 
 let questions = [
@@ -92,8 +94,6 @@ function checkAnswer(answer) {
         nextQuestion++;
         showQuestion();
     } else {
-        // the quiz is over
-        //show the high score
         showHighScore();
 
     }
@@ -107,14 +107,51 @@ function wrongAnswer() {
     outcome.innerHTML = "Sorry, that is the wrong answer.";
     
 }
-restart.addEventListener("click", startQuiz);
+// restart.addEventListener("click", startQuiz);
 function showHighScore () {
     quiz.style.display = "none";
     highscore.style.display = "grid";
-    myScore.innerHTML = "<h2>Your score is: " + timeLeft + "</h2>"; 
+    myScore.innerHTML += "<h2>Your score is: " + timeLeft + "</h2>";
+    var myName = prompt("Add Your Name for the HighScore");
+    // var myName = document.getElementById("my-name").value;
+    console.log(myName);
+    var saveWinners = function() {
+        localStorage.setItem("score", JSON.stringify(timeLeft));
+        localStorage.setItem("name", JSON.stringify(myName));
+      }
+    saveWinners();
 }
+// addMyName.addEventListener("click", getMyName);
+
+function getWinners(){
+    var saveWinners = localStorage.getItem("name");
+    if(!saveWinners) {
+        return false;
+    }
+    console.log(saveWinners);
+}
+
+getWinners();
+
 //show the timer
 function showTimer() {
-    timer.innerHTML = "Time left: " + timeLeft;
+    timer.innerHTML = "Time left: " + timeLeft + " seconds";
 }
 showTimer();
+
+ // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+ var timeInterval = setInterval(function() {
+    if (timeLeft > 1) {
+      timer.textContent = "Time left: " + timeLeft + " seconds";
+      timeLeft--;
+    } else if (timeLeft === 1) {
+      timer.textContent = "Time left: " + timeLeft + " seconds";
+      timeLeft--;
+    } else {
+      timer.textContent = '';
+      clearInterval(timeInterval);
+      showTimer();
+    }
+  }, 1000);
+
+
