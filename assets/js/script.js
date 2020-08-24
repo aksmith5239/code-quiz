@@ -9,6 +9,7 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var outcome = document.getElementById("outcome");
 var restart = document.getElementById("re-start");
+var myScore = document.getElementById("my-score");
 var timeLeft = 60;
 
 let questions = [
@@ -84,6 +85,7 @@ function checkAnswer(answer) {
     } else {
         console.log("wrong");
         timeLeft = timeLeft - 10;
+        showTimer();
         wrongAnswer();
     }
     if(nextQuestion < lastQuestion) {
@@ -109,7 +111,7 @@ restart.addEventListener("click", startQuiz);
 function showHighScore () {
     quiz.style.display = "none";
     highscore.style.display = "grid";
-    timeLeft.innerHTML = "You finished with " + timeLeft + "seconds left." 
+    myScore.innerHTML = "<h2>Your score is: " + timeLeft + "</h2>"; 
 }
 //show the timer
 function showTimer() {

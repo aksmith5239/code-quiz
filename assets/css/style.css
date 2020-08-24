@@ -36,6 +36,10 @@
         color: var(--lightgray);
         margin-bottom: 30px;
     }
+
+    .highscore h2 {
+        color: var(--secondary-color);
+    }
     
     h3 {
        font-size: 14px; 
