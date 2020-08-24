@@ -12,7 +12,7 @@ var restart = document.getElementById("re-start");
 var myScore = document.getElementById("my-score");
 var addMyName = document.getElementById("add-name");
 var winners = document.getElementById("winners");
-var timeLeft = 60;
+var timeLeft = 90;
 
 let questions = [
     {
@@ -82,10 +82,8 @@ function startQuiz() {
 function checkAnswer(answer) {
     if(answer == questions[nextQuestion].correct) {
         //answer is correct
-        console.log("correct");
         correctAnswer();
     } else {
-        console.log("wrong");
         timeLeft = timeLeft - 10;
         showTimer();
         wrongAnswer();
@@ -101,6 +99,7 @@ function checkAnswer(answer) {
 
 function correctAnswer() {
     outcome.innerHTML = "That is the correct answer!";
+    
 }
 
 function wrongAnswer() {
@@ -114,33 +113,34 @@ function showHighScore () {
     myScore.innerHTML += "<h2>Your score is: " + timeLeft + "</h2>";
     var myName = prompt("Add Your Name for the HighScore");
     // var myName = document.getElementById("my-name").value;
-    console.log(myName);
     var saveWinners = function() {
-        localStorage.setItem("score", JSON.stringify(timeLeft));
-        localStorage.setItem("name", JSON.stringify(myName));
+        let winnersArray = []
+        localStorage.setItem("name", JSON.stringify(winnersArray));
+        const winner = JSON.parse(localStorage.getItem('name'))
+        const score = JSON.parse(localStorage.getItem('timeLeft'))
+        winnersArray.push(myName)
+        localStorage.setItem('name', JSON.stringify(winnersArray))
+        localStorage.setItem('score', JSON.stringify(winnersArray))
+        
+    winnersArray = localStorage.getItem('name')
+    ? JSON.parse(localStorage.getItem('name'))
+    : []
+    winners.innerHTML = "<h3>Winners</h3><li>" + winnersArray + "</li>";
       }
     saveWinners();
 }
 // addMyName.addEventListener("click", getMyName);
 
-function getWinners(){
-    var saveWinners = localStorage.getItem("name");
-    if(!saveWinners) {
-        return false;
-    }
-    console.log(saveWinners);
-}
-
-getWinners();
-
 //show the timer
 function showTimer() {
     timer.innerHTML = "Time left: " + timeLeft + " seconds";
+    clearInterval(timeInterval);
 }
-showTimer();
+
 
  // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
  var timeInterval = setInterval(function() {
+    // showTimer();
     if (timeLeft > 1) {
       timer.textContent = "Time left: " + timeLeft + " seconds";
       timeLeft--;
@@ -149,8 +149,9 @@ showTimer();
       timeLeft--;
     } else {
       timer.textContent = '';
-      clearInterval(timeInterval);
+    //   clearInterval(timeInterval);
       showTimer();
+      clearInterval(timeInterval);
     }
   }, 1000);
 
